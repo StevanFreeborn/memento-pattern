@@ -14,7 +14,6 @@ public class Game(string secretWord, int allowedIncorrectGuesses = 6)
   {
     var result = GetResult(letter);
     Status = GetGameStatus();
-
     return result;
   }
 
