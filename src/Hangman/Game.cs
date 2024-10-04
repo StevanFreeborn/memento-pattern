@@ -7,6 +7,7 @@ public class Game(string secretWord, int allowedIncorrectGuesses = 6)
   public string SecretWord { get; } = secretWord.ToUpper();
   public int AllowedIncorrectGuesses { get; } = allowedIncorrectGuesses;
   public int IncorrectGuesses { get; private set; }
+  public int RemainingGuesses => AllowedIncorrectGuesses - IncorrectGuesses;
   public GameStatus Status { get; private set; } = GameStatus.InProgress;
   public string MaskedWord => string.Concat(SecretWord.Select(letter => _guessedLetters.Contains(letter) ? letter : '_'));
 
