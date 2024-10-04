@@ -2,12 +2,12 @@ namespace Hangman;
 
 public class Game(string secretWord, int allowedIncorrectGuesses = 6)
 {
-  private readonly List<char> _guessedLetters = [];
+  protected readonly List<char> _guessedLetters = [];
 
   public string SecretWord { get; } = secretWord.ToUpper();
   public int AllowedIncorrectGuesses { get; } = allowedIncorrectGuesses;
-  public int IncorrectGuesses { get; private set; }
-  public int RemainingGuesses => AllowedIncorrectGuesses - IncorrectGuesses;
+  public int IncorrectGuesses => _guessedLetters.Count(letter => SecretWord.Contains(letter) is false);
+  public int RemainingIncorrectGuesses => AllowedIncorrectGuesses - IncorrectGuesses;
   public GameStatus Status { get; private set; } = GameStatus.InProgress;
   public string MaskedWord => string.Concat(SecretWord.Select(letter => _guessedLetters.Contains(letter) ? letter : '_'));
 
@@ -49,7 +49,6 @@ public class Game(string secretWord, int allowedIncorrectGuesses = 6)
 
     if (SecretWord.Contains(letter) is false)
     {
-      IncorrectGuesses++;
       return GuessResult.Incorrect;
     }
 
